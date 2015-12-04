@@ -1,0 +1,44 @@
+/*------------>> MEDIA QUERIES <<------------*/
+/*------------>> Mobile <<------------*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%; 
+}
+
+#search {
+	background: #2BBDD8;
+	position: relative;
+	width: 100%;
+	height: 8%;
+}
+
+input#search-value {
+	position: absolute;
+	width: 60%;
+	height: 25px;
+	top: 20%;
+	left: 20%;
+
+	border: none;
+}
+
+#map {
+	height: 60%;
+}
+
+/*------------>> Tablet <<------------*/
+@media (min-width: 415px) {
+	body {
+		background: green; 
+	}
+}
+/*------------>> Web <<------------*/
+@media (min-width: 769px) {
+	body {
+		background: yellow; 
+	}
+}

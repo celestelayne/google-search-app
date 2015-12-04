@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1">
+	<title>Google Places Search</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<form id="search">
+		<!-- Basic input -->
+			<input id="search-value" class="controls" type="text" placeholder="Search">
+	</form>
+	<!-- Basic Google Map -->
+	<div id="map"></div>
+	<div id="results">
+		<ul id="results-list"></ul>
+	</div>
+
+	<script type="text/javascript" src="script.js"></script>
+	<!-- Google Map & Places API -->
+	<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl97V7h15VMlHrIYtEJyU6-06wBo0xBBA&callback=initMap&libraries=places"></script>
+
+</body>
+</html>
