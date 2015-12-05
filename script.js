@@ -98,7 +98,7 @@ console.log('sanity check!');
 	function addSearchResult(event) {
 		event.preventDefault();
 		var searchvalue = input.value;
-		console.log(searchvalue);
+		// console.log(searchvalue);
 		createLine(searchvalue);
 		// clean up 
 		input.value = '';
@@ -108,13 +108,31 @@ console.log('sanity check!');
 		// console.log(result);
 		// create and append new list item
 		var li = document.createElement('li');
+		var p = document.createElement("p");
+		var img = document.createElement('img');
+
+		// rename results with variables
 		var name = result.name;
 		var address = result.formatted_address;
-		var open_now = result.opening_hours.open_now;
 		var rating = result.rating;
-		// set the text content to both the new list item and the result
-		li.textContent = name + address;
-		// console.log(result.name);
+		var anchor;
 
+		// loop through and drill down into result to retreive <a> tag
+		result.photos.forEach(function(element){
+			// console.log(element.html_attributions);	
+			element.html_attributions.forEach(function(a_tag){
+				console.log(a_tag);
+				anchor = a_tag;
+			});
+		});
+
+		// decorate elements with Materialize classes
+		p.classList.add('card-panel');
+		
+		// set the innerHTML to results
+		p.innerHTML = anchor + '<br>' + address;
+
+		// insert into the DOM
+		li.appendChild(p);
 		resultsList.appendChild(li);
 	}

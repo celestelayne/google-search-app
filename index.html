@@ -2,25 +2,41 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Google Places Search</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Materialize CSS CDN -->
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+  <!-- Application Stylesheet -->
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<form id="search">
-		<!-- Basic input -->
-			<input id="search-value" class="controls" type="text" placeholder="Search">
-	</form>
+	<nav>
+		<div class="nav-wrapper ">
+			<form id="search " class="valign-wrapper">
+				<div class="input-field valign">
+					<!-- Basic input -->
+					<input id="search-value" class="controls" type="search">
+					<label for="search-value"><i class="material-icons">search</i></label>
+					<i class="material-icons">close</i>
+				</div>
+			</form>
+		</div>
+	</nav>
 	<!-- Basic Google Map -->
 	<div id="map"></div>
-	<div id="results">
-		<ul id="results-list"></ul>
+	<div id="results" class="row">
+		<ul id="results-list" class="col s6"></ul>
 	</div>
+
+		<!-- jQuery CDN -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	  <!-- Materialize JavaScript CDN -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
 	<script type="text/javascript" src="script.js"></script>
 	<!-- Google Map & Places API -->
 	<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl97V7h15VMlHrIYtEJyU6-06wBo0xBBA&callback=initMap&libraries=places"></script>
-
 </body>
 </html>
