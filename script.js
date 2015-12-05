@@ -55,7 +55,7 @@ console.log('sanity check!');
 			places.forEach(function(place){
 				console.log(place) // actual places from the search!!!!
 				icon = {
-					url: place.icon,
+					// url: place.icon,
 					size: new google.maps.Size(40,40),
 					origin: new google.maps.Point(0,0),
 					scaledSize: new google.maps.Size(25,25)
@@ -64,25 +64,25 @@ console.log('sanity check!');
 				// create marker for each new place
 				markers.push(new google.maps.Marker({
 					map: map,
-					icon: icon,
+					// icon: icon,
 					title: place.name,
 					position: place.geometry.location
 				}));
 
 				createLine(place);
 				
-				google.maps.event.addListener(markers, 'click', function(){
-					service.getDetails(place, function(result, status){
+				// google.maps.event.addListener(markers, 'click', function(){
+				// 	service.getDetails(place, function(result, status){
 						
-						if (status !== google.maps.places.PlacesServiceStatus.OK) {
-							console.error(status);
-							return;
-						}
-						console.log(result);
-						infowindow.setContent(title);
-						infowindow.open(map, this);						
-					});
-				});
+				// 		if (status !== google.maps.places.PlacesServiceStatus.OK) {
+				// 			console.error(status);
+				// 			return;
+				// 		}
+				// 		console.log(result);
+				// 		infowindow.setContent(title);
+				// 		infowindow.open(map, this);						
+				// 	});
+				// });
 
 				if (place.geometry.viewport) {
 					bounds.union(place.geometry.viewport);
@@ -128,6 +128,7 @@ console.log('sanity check!');
 
 		// decorate elements with Materialize classes
 		p.classList.add('card-panel');
+		li.classList.add('animated', 'fadeInUp', 'col', 's6');
 		
 		// set the innerHTML to results
 		p.innerHTML = anchor + '<br>' + address;
