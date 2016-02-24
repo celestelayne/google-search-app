@@ -9,6 +9,9 @@ console.log('sanity check!');
 // Setup
 // ------------------------------------------------
 	var map, coordinates, mapOptions, request, service, infowindow, icon;
+	var markers = [];
+	var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var labelIndex = 0;
 
 // Events
 // ------------------------------------------------
@@ -27,18 +30,22 @@ console.log('sanity check!');
 		};
 
 		map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
 		infowindow = new google.maps.InfoWindow();
-		service = new google.maps.places.PlacesService(map);
+		// service = new google.maps.places.PlacesService(map);
 
 		// link search box to UI element
 		var searchBox = new google.maps.places.SearchBox(input);
+
+	  google.maps.event.addListener(map, 'click', function() {
+      infowindow.close();
+    });
+
 		// bias the SearchBox results towards current map viewport
 		map.addListener('bounds_changed', function(){
 			searchBox.setBounds(map.getBounds());
 		});
 
-		var markers = [];
+		
 		searchBox.addListener('places_changed', function(){
 			var places = searchBox.getPlaces();
 			if (places.length == 0) {
@@ -49,6 +56,7 @@ console.log('sanity check!');
 			markers.forEach(function(marker){
 				marker.setMap(null);
 			});
+
 			markers = [];
 
 			var bounds = new google.maps.LatLngBounds();
@@ -61,28 +69,31 @@ console.log('sanity check!');
 					scaledSize: new google.maps.Size(25,25)
 				};
 
+				// console.log(markers);
+				markers.forEach(function(marker){
+					console.log(marker);
+					var html = "<b>" + place.name + "</b> <br/>" + place.address;
+					marker = new google.maps.Marker({
+						map: map,
+						animation: google.maps.Animation.DROP,
+						// icon: icon,
+						title: place.name,
+						position: place.geometry.location
+					});
+					google.maps.event.addListener(marker, 'click', (function(marker){
+						return function(){
+							infowindow.setContent(html);
+							infowindow.open(map, marker);	
+						}
+					})(marker));
+				});
+
 				// create marker for each new place
 				markers.push(new google.maps.Marker({
-					map: map,
-					// icon: icon,
-					title: place.name,
-					position: place.geometry.location
+					label: labels[labelIndex++ % labels.length]
 				}));
 
 				createLine(place);
-				
-				// google.maps.event.addListener(markers, 'click', function(){
-				// 	service.getDetails(place, function(result, status){
-						
-				// 		if (status !== google.maps.places.PlacesServiceStatus.OK) {
-				// 			console.error(status);
-				// 			return;
-				// 		}
-				// 		console.log(result);
-				// 		infowindow.setContent(title);
-				// 		infowindow.open(map, this);						
-				// 	});
-				// });
 
 				if (place.geometry.viewport) {
 					bounds.union(place.geometry.viewport);
@@ -92,7 +103,9 @@ console.log('sanity check!');
 			});
 			
 			map.fitBounds(bounds);
+
 		});
+	// animation drop goes here
 }
 
 	function addSearchResult(event) {
@@ -105,7 +118,7 @@ console.log('sanity check!');
 	}
 
 	function createLine(result) {
-		// console.log(result);
+		console.log(result);
 		// create and append new list item
 		var li = document.createElement('li');
 		var p = document.createElement("p");
@@ -113,15 +126,17 @@ console.log('sanity check!');
 
 		// rename results with variables
 		var name = result.name;
+		// console.log(name)
 		var address = result.formatted_address;
 		var rating = result.rating;
 		var anchor;
 
+
 		// loop through and drill down into result to retreive <a> tag
 		result.photos.forEach(function(element){
-			// console.log(element.html_attributions);	
+			// console.log(element);	
 			element.html_attributions.forEach(function(a_tag){
-				console.log(a_tag);
+				console.log(a_tag + '.png');
 				anchor = a_tag;
 			});
 		});
